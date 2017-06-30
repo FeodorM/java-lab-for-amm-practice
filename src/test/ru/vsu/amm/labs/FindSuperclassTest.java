@@ -13,13 +13,13 @@ import static org.junit.Assert.*;
  */
 public class FindSuperclassTest {
     private Map<String, String> testData = new HashMap<>();
+
     @Before
     public void setUp() throws Exception {
         testData.put("java.util.ArrayList", "java.util.AbstractList");
         testData.put("java.util.AbstractList", "java.util.AbstractCollection");
         testData.put("java.util.AbstractCollection", "java.lang.Object");
     }
-
     @Test
     public void getSuperClass() throws Exception {
         for (Map.Entry<String, String> entry : testData.entrySet()) {
@@ -28,4 +28,19 @@ public class FindSuperclassTest {
         }
     }
 
+    @Test
+    public void getSuperclassName() throws Exception {
+        for (Map.Entry<String, String> entry : testData.entrySet()) {
+            String actual = FindSuperclass.getSuperclassName(Class.forName(entry.getKey()));
+            assertEquals(entry.getValue(), actual);
+        }
+    }
+
+    @Test
+    public void getSuperclassNameStr() throws Exception {
+        for (Map.Entry<String, String> entry : testData.entrySet()) {
+            String actual = FindSuperclass.getSuperclassName(entry.getKey());
+            assertEquals(entry.getValue(), actual);
+        }
+    }
 }
